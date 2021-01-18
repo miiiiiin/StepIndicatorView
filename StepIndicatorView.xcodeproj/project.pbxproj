@@ -17,6 +17,7 @@
 		7D145C2625B164DA007D312E /* StepIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D145C2525B164DA007D312E /* StepIndicatorView.swift */; };
 		7D145C2A25B164F2007D312E /* AnnularLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D145C2925B164F2007D312E /* AnnularLayer.swift */; };
 		7D145C2D25B16502007D312E /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D145C2C25B16502007D312E /* LineLayer.swift */; };
+		7DCBA6BD25B5536B008B2B17 /* StepProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBA6BC25B5536B008B2B17 /* StepProgressIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		7D145C2525B164DA007D312E /* StepIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepIndicatorView.swift; sourceTree = "<group>"; };
 		7D145C2925B164F2007D312E /* AnnularLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnularLayer.swift; sourceTree = "<group>"; };
 		7D145C2C25B16502007D312E /* LineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
+		7DCBA6BC25B5536B008B2B17 /* StepProgressIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			children = (
 				7D145C2425B164C8007D312E /* StepIndicator */,
 				7D145C1C25B1642F007D312E /* StepProgressView.swift */,
+				7DCBA6BC25B5536B008B2B17 /* StepProgressIndicatorView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				7D145C0525B16406007D312E /* AppDelegate.swift in Sources */,
 				7D145C2225B164A1007D312E /* UIView+Sweeter.swift in Sources */,
 				7D145C2A25B164F2007D312E /* AnnularLayer.swift in Sources */,
+				7DCBA6BD25B5536B008B2B17 /* StepProgressIndicatorView.swift in Sources */,
 				7D145C2625B164DA007D312E /* StepIndicatorView.swift in Sources */,
 				7D145C1D25B1642F007D312E /* StepProgressView.swift in Sources */,
 				7D145C2D25B16502007D312E /* LineLayer.swift in Sources */,
