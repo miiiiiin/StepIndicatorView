@@ -463,16 +463,12 @@ public class StepProgressIndicatorView: UIView {
             annularLayer.updateStatus()
                 
             print("annnularlayers frame: \(layer.frame)")
-            
+            print("x frame: \(x)")
             if (i < self.numberOfSteps - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
-                lineLayer.frame = CGRect(x: annularLayer.frame.origin.x +  floor(annularLayer.lineWidth / 2), y: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, width: 3, height: stepWidth - diameter - self.lineMargin * 2)
-                
-//                annularLayer.frame = CGRect(
-//                    origin: CGPoint(x: floor(annularLayer.lineWidth / 2), y: y),
-//                    size: CGSize(width: diameter, height: diameter)
-//                )
-//
+                //fixme (x: "x - 1")
+                lineLayer.frame = CGRect(x: floor(annularLayer.lineWidth / 2) + 9, y: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, width: 3, height: stepWidth - diameter - self.lineMargin * 2)
+         
                 lineLayer.isHorizontal = false
                 self.applyLineStyle(lineLayer: lineLayer)
                 lineLayer.updateStatus()
