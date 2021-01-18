@@ -16,6 +16,16 @@ class SingleDemoViewController: UIViewController {
         "Last but not least",
     ]
     
+    lazy var slider: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.minimumValue = -1
+        slider.maximumValue = Float(firstSteps.count)
+        slider.value = -1
+        slider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
+        return slider
+    }()
+    
     lazy var stepProgressView: StepProgressView = {
         let view = StepProgressView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,9 +52,9 @@ class SingleDemoViewController: UIViewController {
         view.lineTintColor = view.circleTintColor
         view.lineMargin = 4.0
         view.lineStrokeWidth = 2.0
-        view.displayNumbers = true
+        view.displayNumbers = false
         view.direction = .leftToRight
-        view.showFlag = true
+        view.showFlag = false
         return view
     }()
     
@@ -54,8 +64,8 @@ class SingleDemoViewController: UIViewController {
         view.steps = firstSteps
         view.numberOfSteps = firstSteps.count
         view.currentStep = 0
-        view.circleColor = .green
-        view.circleTintColor = .lightGray
+        view.circleColor = .lightGray
+        view.circleTintColor = .green
         view.circleStrokeWidth = 3.0
         view.circleRadius = 10.0
         view.lineColor = view.circleColor
@@ -73,7 +83,7 @@ class SingleDemoViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        [stepProgressView, stepIndicatorView, newStepProgressView].forEach(self.view.addSubview(_:))
+        [stepProgressView, stepIndicatorView, newStepProgressView, slider].forEach(self.view.addSubview(_:))
         
         NSLayoutConstraint.activate([
             stepProgressView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -88,7 +98,20 @@ class SingleDemoViewController: UIViewController {
             newStepProgressView.topAnchor.constraint(equalTo: self.stepIndicatorView.bottomAnchor),
             newStepProgressView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             newStepProgressView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            newStepProgressView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            newStepProgressView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -200),
+            
+            slider.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
+            slider.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            slider.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            slider.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            
         ])
+    }
+    
+    @objc func sliderChanged(_ sender: UISlider) {
+        print("sliderChanged: \(Int(sender.value))")
+        stepProgressView.currentStep = Int(sender.value)
+        stepIndicatorView.currentStep = Int(sender.value)
+        newStepProgressView.currentStep = Int(sender.value)
     }
 }

@@ -72,7 +72,6 @@ public class StepProgressIndicatorView: UIView {
                 DispatchQueue.main.async { [weak self] in
                     if let strongSelf = self, strongSelf.needsSetup {
 //                        strongSelf.setUpStepViews()
-                        
                     }
                 }
             }
@@ -160,6 +159,8 @@ public class StepProgressIndicatorView: UIView {
     
     @IBInspectable public var currentStep: Int = -1 {
         didSet {
+            needsColor = true
+            print("currentstep check: \(steps.indices.contains(currentStep) ? steps[currentStep] : nil)")
             if self.annularLayers.count <= 0 {
                 return
             }
@@ -455,7 +456,6 @@ public class StepProgressIndicatorView: UIView {
         }
     }
 }
-
 
 private class SingleStepView: UIView {
     var textLabel = UILabel()
