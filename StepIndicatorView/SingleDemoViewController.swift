@@ -52,7 +52,7 @@ class SingleDemoViewController: UIViewController {
         let view = StepProgressIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.steps = firstSteps
-//        view.numberOfSteps = 6
+        view.numberOfSteps = firstSteps.count
         view.currentStep = 0
         view.circleColor = .green
         view.circleTintColor = .lightGray
