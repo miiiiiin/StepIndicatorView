@@ -23,22 +23,22 @@ public class StepProgressIndicatorView: UIView {
     
     
     /// Titles of the step-by-step progression stages
-    open var steps: [String] = [] { didSet { needsSetup = true } }
+    open var steps: [String] = []
     /// Optional additional text description for each step, shown below the step title
-    open var details: [Int: String] = [:] { didSet { needsSetup = true } }
+    open var details: [Int: String] = [:]
     
     
     // MARK: - Apperance -
     
-    @IBInspectable open dynamic var lineWidth: CGFloat = 1 { didSet { needsSetup = true } }
-    @objc open dynamic var textFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize) { didSet { needsSetup = true } }
-    @objc open dynamic var detailFont = UIFont.systemFont(ofSize: UIFont.systemFontSize) { didSet { needsSetup = true } }
+    @IBInspectable open dynamic var lineWidth: CGFloat = 1
+    @objc open dynamic var textFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
+    @objc open dynamic var detailFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     
     /// space between steps (0 => default based on textFont)
-    @IBInspectable open dynamic var verticalPadding: CGFloat = 0 { didSet { needsSetup = true } }
+    @IBInspectable open dynamic var verticalPadding: CGFloat = 0
 
     /// space between shape and text (0 => default based on textFont)
-    @IBInspectable open dynamic var horizontalPadding: CGFloat = 0 { didSet { needsSetup = true } }
+    @IBInspectable open dynamic var horizontalPadding: CGFloat = 0
     
     
     // MARK: - Colors -
@@ -65,18 +65,6 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - StepProgressView -
     
     private var stepViews: [SingleStepView] = []
-    
-    private var needsSetup: Bool = false {
-        didSet {
-            if needsSetup && !oldValue {
-                DispatchQueue.main.async { [weak self] in
-                    if let strongSelf = self, strongSelf.needsSetup {
-//                        strongSelf.setUpStepViews()
-                    }
-                }
-            }
-        }
-    }
     
     private var needsColor: Bool = false {
         didSet {
@@ -251,7 +239,6 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - Functions -
     
     private func createSteps() {
-        needsSetup = false
         
         stepViews.forEach { $0.removeFromSuperview() }
         stepViews.removeAll(keepingCapacity: true)
