@@ -31,12 +31,17 @@ class SingleDemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
         print("stepindicator: \(stepIndicatorView.currentStep)")
-        
-        self.view.addSubview(stepIndicatorView)
+       
+        [stepIndicatorView].forEach(self.view.addSubview(_:))
         
         NSLayoutConstraint.activate([
-            stepIndicatorView.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor),
+            stepIndicatorView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            stepIndicatorView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            stepIndicatorView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            stepIndicatorView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
     }
 }
