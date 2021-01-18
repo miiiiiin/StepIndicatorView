@@ -71,7 +71,8 @@ public class StepProgressIndicatorView: UIView {
             if needsSetup && !oldValue {
                 DispatchQueue.main.async { [weak self] in
                     if let strongSelf = self, strongSelf.needsSetup {
-                        strongSelf.setUpStepViews()
+//                        strongSelf.setUpStepViews()
+                        
                     }
                 }
             }
@@ -103,53 +104,6 @@ public class StepProgressIndicatorView: UIView {
             width: stepSizes.map { $0.width }.max() ?? 0,
             height: stepSizes.map { $0.height }.reduce(0, +)
         )
-    }
-    
-    private func setUpStepViews() {
-        print("setupstepviews")
-//        needsSetup = false
-//
-//        stepViews.forEach { $0.removeFromSuperview() }
-//        stepViews.removeAll(keepingCapacity: true)
-//
-//        let shapeSize = textFont.pointSize * 1.2
-//
-//        if horizontalPadding.isZero { horizontalPadding = shapeSize / 2}
-//        if verticalPadding.isZero { verticalPadding = shapeSize }
-//
-//        var prevView: UIView = self
-//        var prevAttribute: NSLayoutConstraint.Attribute = .top
-//
-//        for i in 0..<steps.count {
-//            //fixme
-//
-//            let stepView = SingleStepView(
-//                text: steps[i],
-//                detail: details[i],
-//                font: textFont, detailFont:
-//                detailFont,
-////                shape: shape,
-//                shapeSize: shapeSize,
-//                lineWidth: lineWidth,
-//                hPadding: horizontalPadding,
-//                vPadding: verticalPadding
-//            )
-//            stepViews.append(stepView)
-//
-//
-//            // layout step view
-//            addConstrainedSubview(stepView, constrain: .leading, .trailing)
-//            constrain(stepView, at: .top, to: prevView, at: prevAttribute)
-//            prevView = stepView
-//            prevAttribute = .bottom
-//        }
-//
-//        if let lastStepView = stepViews.last {
-//            lastStepView.lineView.isHidden = true
-//            constrain(lastStepView, at: .bottom)
-//        }
-//
-//        colorSteps()
     }
 
     private func colorSteps() {
@@ -392,10 +346,10 @@ public class StepProgressIndicatorView: UIView {
             prevAttribute = .bottom
         }
 
-        if let lastStepView = stepViews.last {
-            lastStepView.lineView.isHidden = true
-            constrain(lastStepView, at: .bottom)
-        }
+//        if let lastStepView = stepViews.last {
+//            lastStepView.lineView.isHidden = true
+//            constrain(lastStepView, at: .bottom)
+//        }
         
         colorSteps()
         
@@ -433,11 +387,14 @@ public class StepProgressIndicatorView: UIView {
             annularLayer.step = i + 1
             annularLayer.updateStatus()
             
+            print("annnularlayers horizontal frame: \(annularLayer.frame)")
+            
             if (i < self.numberOfSteps - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
-                lineLayer.frame = CGRect(x: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, y: y - 1, width: stepWidth - diameter - self.lineMargin * 2, height: 3)
+                lineLayer.frame = CGRect(x: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, y: y + (2 * 4), width: stepWidth - diameter - self.lineMargin * 2, height: 3)
                 self.applyLineStyle(lineLayer: lineLayer)
                 lineLayer.updateStatus()
+                print("lineLayer horizontal frame: \(lineLayer.frame)")
             }
         }
     }
@@ -548,13 +505,11 @@ public class StepProgressIndicatorView: UIView {
 private class SingleStepView: UIView {
     var textLabel = UILabel()
     var detailLabel = UILabel()
-//    var shapeLayer = CAShapeLayer()
-    var lineView = UIView()
 
     var leadingSpace: CGFloat = 0
     var bottomSpace: CGFloat = 0
 
-    convenience init(text: String, detail: String?, font: UIFont, detailFont: UIFont, /*layers: [CALayer], annualLayers:[AnnularLayer], horizontalLineLayers: [LineLayer], containerLayers: CALayer, numberOfSteps: Int,shape: StepProgressView.Shape,*/ shapeSize: CGFloat, lineWidth: CGFloat, hPadding: CGFloat, vPadding: CGFloat) {
+    convenience init(text: String, detail: String?, font: UIFont, detailFont: UIFont, shapeSize: CGFloat, lineWidth: CGFloat, hPadding: CGFloat, vPadding: CGFloat) {
         self.init()
 
         leadingSpace = hPadding + shapeSize + lineWidth
@@ -576,18 +531,12 @@ private class SingleStepView: UIView {
         constrain(detailLabel, at: .trailing, to: textLabel)
         constrain(detailLabel, at: .leading, to: textLabel)
         constrain(detailLabel, at: .bottom, diff: -vPadding)
-
-        // line to next step
-        addConstrainedSubview(lineView, constrain: .bottom)
-        constrain(lineView, at: .leading, diff: shapeSize / 2)
-        constrain(lineView, at: .top, diff: shapeSize + lineWidth - 1)
-        lineView.constrain(.width, to: lineWidth)
     }
 
     func color(text: UIColor, detail: UIColor, stroke: UIColor, fill: UIColor, line: UIColor) {
         textLabel.textColor = text
         detailLabel.textColor = detail
-        lineView.backgroundColor = line
+//        lineView.backgroundColor = line
 //        shapeLayer.strokeColor = stroke.cgColor
 //        shapeLayer.fillColor = fill.cgColor
     }
@@ -597,40 +546,5 @@ private class SingleStepView: UIView {
         size.width += leadingSpace
         size.height += detailLabel.intrinsicContentSize.height + bottomSpace
         return size
-    }
-}
-
-
-private extension UIBezierPath {
-    convenience init(shape: StepProgressView.Shape, frame: CGRect) {
-        switch shape {
-        case .circle:
-            self.init(ovalIn: frame)
-
-        case .square:
-            self.init(rect: frame)
-
-        case .triangle:
-            self.init()
-            move(to: CGPoint(x: frame.midX, y: frame.minY))
-            addLine(to: CGPoint(x: frame.maxX, y: frame.maxY))
-            addLine(to: CGPoint(x: frame.minX, y: frame.maxY))
-            close()
-
-        case .downTriangle:
-            self.init()
-            move(to: CGPoint(x: frame.midX, y: frame.maxY))
-            addLine(to: CGPoint(x: frame.maxX, y: frame.minY))
-            addLine(to: CGPoint(x: frame.minX, y: frame.minY))
-            close()
-
-        case .rhombus:
-            self.init()
-            move(to: CGPoint(x: frame.midX, y: frame.minY))
-            addLine(to: CGPoint(x: frame.maxX, y: frame.midY))
-            addLine(to: CGPoint(x: frame.midX, y: frame.maxY))
-            addLine(to: CGPoint(x: frame.minX, y: frame.midY))
-            close()
-        }
     }
 }

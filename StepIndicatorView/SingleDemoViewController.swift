@@ -43,7 +43,7 @@ class SingleDemoViewController: UIViewController {
         view.lineMargin = 4.0
         view.lineStrokeWidth = 2.0
         view.displayNumbers = true
-        view.direction = .topToBottom
+        view.direction = .leftToRight
         view.showFlag = true
         return view
     }()
@@ -63,18 +63,16 @@ class SingleDemoViewController: UIViewController {
         view.lineMargin = 4.0
         view.lineStrokeWidth = 2.0
         view.displayNumbers = true
-        view.direction = .topToBottom
+        view.direction = .leftToRight
         view.showFlag = true
         return view
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .white
-        print("stepindicator: \(stepIndicatorView.currentStep)")
-        
+
         [stepProgressView, stepIndicatorView, newStepProgressView].forEach(self.view.addSubview(_:))
         
         NSLayoutConstraint.activate([
