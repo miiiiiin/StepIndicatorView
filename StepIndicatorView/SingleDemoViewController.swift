@@ -31,6 +31,8 @@ class SingleDemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("stepindicator: \(stepIndicatorView.currentStep)")
+        
         self.view.addSubview(stepIndicatorView)
         
         NSLayoutConstraint.activate([

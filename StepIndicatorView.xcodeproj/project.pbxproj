@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D145C0525B16406007D312E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D145C0425B16406007D312E /* AppDelegate.swift */; };
-		7D145C0725B16406007D312E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D145C0625B16406007D312E /* SceneDelegate.swift */; };
-		7D145C0925B16406007D312E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D145C0825B16406007D312E /* ViewController.swift */; };
 		7D145C0C25B16406007D312E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D145C0A25B16406007D312E /* Main.storyboard */; };
 		7D145C0E25B16407007D312E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D145C0D25B16407007D312E /* Assets.xcassets */; };
 		7D145C1125B16407007D312E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D145C0F25B16407007D312E /* LaunchScreen.storyboard */; };
@@ -24,8 +22,6 @@
 /* Begin PBXFileReference section */
 		7D145C0125B16406007D312E /* StepIndicatorView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StepIndicatorView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D145C0425B16406007D312E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7D145C0625B16406007D312E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7D145C0825B16406007D312E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7D145C0B25B16406007D312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7D145C0D25B16407007D312E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D145C1025B16407007D312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -71,8 +67,6 @@
 				7D145C2025B16499007D312E /* Style */,
 				7D145C1F25B16432007D312E /* CustomViews */,
 				7D145C0425B16406007D312E /* AppDelegate.swift */,
-				7D145C0625B16406007D312E /* SceneDelegate.swift */,
-				7D145C0825B16406007D312E /* ViewController.swift */,
 				7D145C0A25B16406007D312E /* Main.storyboard */,
 				7D145C0D25B16407007D312E /* Assets.xcassets */,
 				7D145C0F25B16407007D312E /* LaunchScreen.storyboard */,
@@ -179,12 +173,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D145C0925B16406007D312E /* ViewController.swift in Sources */,
 				7D145C0525B16406007D312E /* AppDelegate.swift in Sources */,
 				7D145C2225B164A1007D312E /* UIView+Sweeter.swift in Sources */,
 				7D145C2A25B164F2007D312E /* AnnularLayer.swift in Sources */,
 				7D145C2625B164DA007D312E /* StepIndicatorView.swift in Sources */,
-				7D145C0725B16406007D312E /* SceneDelegate.swift in Sources */,
 				7D145C1D25B1642F007D312E /* StepProgressView.swift in Sources */,
 				7D145C2D25B16502007D312E /* LineLayer.swift in Sources */,
 				7D145C1A25B16416007D312E /* SingleDemoViewController.swift in Sources */,
