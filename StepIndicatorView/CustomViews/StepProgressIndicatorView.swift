@@ -400,7 +400,7 @@ public class StepProgressIndicatorView: UIView {
         colorSteps()
         
         //////////////////////
-        
+        print("containerlayer: \(self.containerLayer.frame)")
         self.layer.addSublayer(self.containerLayer)
         self.updateSubLayers()
         self.setCurrentStep(step: self.currentStep)
@@ -451,17 +451,33 @@ public class StepProgressIndicatorView: UIView {
             let annularLayer = self.annularLayers[i]
             let y = self.numberOfSteps == 1 ? self.containerLayer.frame.height / 2.0 - self.circleRadius : self.lineMargin + CGFloat(i) * stepWidth
             
-            annularLayer.frame = CGRect(x: x - self.circleRadius, y: y, width: diameter, height: diameter)
+//            annularLayer.frame = CGRect(x: x - self.circleRadius, y: y, width: diameter, height: diameter)
+            
+            annularLayer.frame = CGRect(
+                origin: CGPoint(x: floor(annularLayer.lineWidth / 2), y: y),
+                size: CGSize(width: diameter, height: diameter)
+            )
+            
             self.applyAnnularStyle(annularLayer: annularLayer)
             annularLayer.step = i + 1
             annularLayer.updateStatus()
+                
+            print("annnularlayers frame: \(layer.frame)")
             
             if (i < self.numberOfSteps - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
-                lineLayer.frame = CGRect(x: x - 1, y: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, width: 3, height: stepWidth - diameter - self.lineMargin * 2)
+                lineLayer.frame = CGRect(x: annularLayer.frame.origin.x +  floor(annularLayer.lineWidth / 2), y: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, width: 3, height: stepWidth - diameter - self.lineMargin * 2)
+                
+//                annularLayer.frame = CGRect(
+//                    origin: CGPoint(x: floor(annularLayer.lineWidth / 2), y: y),
+//                    size: CGSize(width: diameter, height: diameter)
+//                )
+//
                 lineLayer.isHorizontal = false
                 self.applyLineStyle(lineLayer: lineLayer)
                 lineLayer.updateStatus()
+                
+                print("linelayer frame: \(lineLayer.frame)")
             }
         }
     }
@@ -547,28 +563,6 @@ private class SingleStepView: UIView {
 
         leadingSpace = hPadding + shapeSize + lineWidth
         bottomSpace = vPadding
-
-        // shape
-//        shapeLayer.frame = CGRect(
-//            origin: CGPoint(x: floor(lineWidth / 2), y: floor(lineWidth / 2)),
-//            size: CGSize(width: shapeSize, height: shapeSize)
-//        )
-//        shapeLayer.path = UIBezierPath(shape: shape, frame: shapeLayer.bounds).cgPath
-        
-        
-        // progressindicatorview ---------------
-        
-        
-        //
-        
-        //fixme
-//        shapeLayer.strokeColor = UIColor.red.cgColor
-//        shapeLayer.backgroundColor = UIColor.green.cgColor
-        //
-        
-//        shapeLayer.lineWidth = lineWidth
-//        layer.addSublayer(shapeLayer)
-
         // text
         textLabel.font = font
         textLabel.text = text

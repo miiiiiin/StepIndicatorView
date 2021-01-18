@@ -249,6 +249,7 @@ private class SingleStepView: UIView {
             origin: CGPoint(x: floor(lineWidth / 2), y: floor(lineWidth / 2)),
             size: CGSize(width: shapeSize, height: shapeSize)
         )
+        print("shapelayer frame: \(shapeLayer.frame)")
         shapeLayer.path = UIBezierPath(shape: shape, frame: shapeLayer.bounds).cgPath
         shapeLayer.lineWidth = lineWidth
         layer.addSublayer(shapeLayer)
