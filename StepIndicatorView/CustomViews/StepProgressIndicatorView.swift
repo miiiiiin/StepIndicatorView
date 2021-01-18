@@ -250,8 +250,6 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - Functions -
     
     private func createSteps() {
-        print("createSteps: \(stepViews)")
-        
         needsSetup = false
         
         stepViews.forEach { $0.removeFromSuperview() }
@@ -261,44 +259,6 @@ public class StepProgressIndicatorView: UIView {
         
         if horizontalPadding.isZero { horizontalPadding = shapeSize / 2}
         if verticalPadding.isZero { verticalPadding = shapeSize }
-        
-//        var prevView: UIView = self
-//        var prevAttribute: NSLayoutConstraint.Attribute = .top
-        
-//        for i in 0..<steps.count {
-//            //fixme
-//
-//            let stepView = SingleStepView(
-//                text: steps[i],
-//                detail: details[i],
-//                font: textFont, detailFont:
-//                detailFont,
-////                shape: shape,
-//                shapeSize: shapeSize,
-//                lineWidth: lineWidth,
-//                hPadding: horizontalPadding,
-//                vPadding: verticalPadding
-//            )
-//            stepViews.append(stepView)
-//
-//
-//            // layout step view
-//            addConstrainedSubview(stepView, constrain: .leading, .trailing)
-//            constrain(stepView, at: .top, to: prevView, at: prevAttribute)
-//            prevView = stepView
-//            prevAttribute = .bottom
-//        }
-//
-//        if let lastStepView = stepViews.last {
-//            lastStepView.lineView.isHidden = true
-//            constrain(lastStepView, at: .bottom)
-//        }
-        
-//        colorSteps()
-        
-        
-        
-        // ------------ original createsteps ------------
         
         if let layers = self.layer.sublayers {
             for layer in layers {
@@ -310,7 +270,6 @@ public class StepProgressIndicatorView: UIView {
         self.horizontalLineLayers.removeAll()
         
         if self.numberOfSteps <= 0 {
-            print("check numberof steps: \(self.numberOfSteps)")
             return
         }       
         
@@ -326,44 +285,40 @@ public class StepProgressIndicatorView: UIView {
             }
         }
         
-        /////////////////////
-        
-        var prevView: UIView = self
-        var prevAttribute: NSLayoutConstraint.Attribute = .top
-        
-        for i in 0..<steps.count {
-            //fixme
+        print("direction check: \(self.direction)")
+
+            var prevView: UIView = self
+            var prevAttribute: NSLayoutConstraint.Attribute = .top
             
-            let stepView = SingleStepView(text: steps[i], detail: details[i], font: textFont, detailFont: detailFont, shapeSize: shapeSize, lineWidth: lineWidth, hPadding: horizontalPadding, vPadding: verticalPadding)
+            for i in 0..<steps.count {
+                //fixme
+                
+                let stepView = SingleStepView(text: steps[i], detail: details[i], font: textFont, detailFont: detailFont, shapeSize: shapeSize, lineWidth: lineWidth, hPadding: horizontalPadding, vPadding: verticalPadding)
+                
+                stepViews.append(stepView)
+
+                // layout step view
+                addConstrainedSubview(stepView, constrain: .leading, .trailing)
+                constrain(stepView, at: .top, to: prevView, at: prevAttribute)
+                prevView = stepView
+                prevAttribute = .bottom
+            }
+
+    //        if let lastStepView = stepViews.last {
+    //            lastStepView.lineView.isHidden = true
+    //            constrain(lastStepView, at: .bottom)
+    //        }
             
-            stepViews.append(stepView)
-
-
-            // layout step view
-            addConstrainedSubview(stepView, constrain: .leading, .trailing)
-            constrain(stepView, at: .top, to: prevView, at: prevAttribute)
-            prevView = stepView
-            prevAttribute = .bottom
-        }
-
-//        if let lastStepView = stepViews.last {
-//            lastStepView.lineView.isHidden = true
-//            constrain(lastStepView, at: .bottom)
-//        }
+            colorSteps()
         
-        colorSteps()
-        
-        //////////////////////
-        print("containerlayer: \(self.containerLayer.frame)")
         self.layer.addSublayer(self.containerLayer)
         self.updateSubLayers()
         self.setCurrentStep(step: self.currentStep)
     }
     
-    
     private func updateSubLayers() {
         self.containerLayer.frame = self.layer.bounds
-        
+        print("updatesublayers: \(self.direction)")
         if self.direction == .leftToRight || self.direction == .rightToLeft {
             self.layoutHorizontal()
         } else {
@@ -533,6 +488,7 @@ private class SingleStepView: UIView {
         constrain(detailLabel, at: .bottom, diff: -vPadding)
     }
 
+    //fixme
     func color(text: UIColor, detail: UIColor, stroke: UIColor, fill: UIColor, line: UIColor) {
         textLabel.textColor = text
         detailLabel.textColor = detail
