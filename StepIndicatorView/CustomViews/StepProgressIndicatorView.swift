@@ -216,8 +216,11 @@ public class StepProgressIndicatorView: UIView {
         }
     }
     
-    public var direction: StepProgressIndicatorViewDirection = .leftToRight {
+    public var direction: StepProgressIndicatorViewDirection = .topToBottom {
         didSet {
+            //fixme
+            //timing error
+            print("initial direction: \(direction)")
             self.updateSubLayers()
         }
     }
@@ -261,12 +264,13 @@ public class StepProgressIndicatorView: UIView {
         
         if self.numberOfSteps <= 0 {
             return
-        }       
+        }
         
         for i in 0..<self.numberOfSteps {
             let annularLayer = AnnularLayer()
             self.containerLayer.addSublayer(annularLayer)
             self.annularLayers.append(annularLayer)
+            
             
             if (i < self.numberOfSteps - 1) {
                 let lineLayer = LineLayer()
@@ -275,7 +279,11 @@ public class StepProgressIndicatorView: UIView {
             }
         }
         
+        print("annularlaeyrs: \(self.annularLayers), \(direction)") //1
+        
+        
         if direction == .topToBottom || direction == .bottomToTop {
+            print("directiontopbottom: \(direction)")
             var prevView: UIView = self
             var prevAttribute: NSLayoutConstraint.Attribute = .top
             
@@ -291,6 +299,9 @@ public class StepProgressIndicatorView: UIView {
                 prevView = stepView
                 prevAttribute = .bottom
             }
+        } else {
+            
+            print("annularlayer: \(self.numberOfSteps)")
         }
         
         setupStepViews()
