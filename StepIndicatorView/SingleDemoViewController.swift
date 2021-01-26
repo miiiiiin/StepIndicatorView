@@ -79,7 +79,7 @@ class SingleDemoViewController: UIViewController {
         view.lineMargin = 4.0
         view.lineStrokeWidth = 2.0
         view.displayNumbers = false
-        view.direction = .topToBottom
+        view.direction = .leftToRight
         view.showFlag = true
         return view
     }()
