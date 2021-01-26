@@ -68,6 +68,7 @@ class SingleDemoViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.stepTitles = firstSteps
         view.details = details
+        view.numberOfSteps = firstSteps.count
         view.currentStep = 0
         view.circleColor = .lightGray
         view.circleTintColor = .green

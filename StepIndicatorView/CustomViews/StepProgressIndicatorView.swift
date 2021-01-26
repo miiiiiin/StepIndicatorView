@@ -25,14 +25,16 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - Behavior -
     
     /// Titles of the step-by-step progression stages
-    open var stepTitles: [String] = [] {
-        didSet {
-            self.numberOfSteps = stepTitles.count
-        }
-    }
-    
+    open var stepTitles: [String] = []
+
     /// Optional additional text description for each step, shown below the step title
     open var details: [Int: String] = [:]
+    
+    open var numberOfSteps: Int = 5 {
+       didSet {
+           self.createSteps()
+       }
+   }
     
     // MARK: - Apperance -
     @objc open dynamic var textFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
@@ -69,13 +71,7 @@ public class StepProgressIndicatorView: UIView {
     
     
     // MARK: - Private -
-    
-    fileprivate var numberOfSteps: Int = 5 {
-        didSet {
-            self.createSteps()
-        }
-    }
-    
+
     private var stepViews: [SingleStepView] = []
     
     private var needsColor: Bool = false {
@@ -246,11 +242,10 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - Functions -
     
     private func createSteps() {
-        
         stepViews.forEach { $0.removeFromSuperview() }
         stepViews.removeAll(keepingCapacity: true)
 
-        let shapeSize = textFont.pointSize * 1.2
+        let shapeSize = textFont.pointSize * 1.0
         
         if horizontalPadding.isZero { horizontalPadding = shapeSize / 2}
         if verticalPadding.isZero { verticalPadding = shapeSize }
@@ -280,7 +275,7 @@ public class StepProgressIndicatorView: UIView {
             }
         }
         
-        print("direction check: \(self.direction)")
+        print("direction check: \(self.direction), \(stepTitles.count)")
 
             var prevView: UIView = self
             var prevAttribute: NSLayoutConstraint.Attribute = .top
