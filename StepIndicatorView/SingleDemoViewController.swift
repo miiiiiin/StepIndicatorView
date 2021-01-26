@@ -58,7 +58,7 @@ class SingleDemoViewController: UIViewController {
         view.lineMargin = 4.0
         view.lineStrokeWidth = 2.0
         view.displayNumbers = false
-        view.direction = .topToBottom
+        view.direction = .leftToRight
         view.showFlag = false
         return view
     }()
@@ -92,7 +92,7 @@ class SingleDemoViewController: UIViewController {
         [stepProgressView, stepIndicatorView, newStepProgressView, slider].forEach(self.view.addSubview(_:))
         
         NSLayoutConstraint.activate([
-            stepProgressView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            stepProgressView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 15),
             stepProgressView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             stepProgressView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             
@@ -104,7 +104,7 @@ class SingleDemoViewController: UIViewController {
             newStepProgressView.topAnchor.constraint(equalTo: self.stepIndicatorView.bottomAnchor),
             newStepProgressView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             newStepProgressView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            newStepProgressView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -200),
+            newStepProgressView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
             
             slider.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
             slider.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
