@@ -25,10 +25,14 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - Behavior -
     
     /// Titles of the step-by-step progression stages
-    open var steps: [String] = []
+    open var stepTitles: [String] = [] {
+        didSet {
+            self.numberOfSteps = stepTitles.count
+        }
+    }
+    
     /// Optional additional text description for each step, shown below the step title
     open var details: [Int: String] = [:]
-    
     
     // MARK: - Apperance -
     
@@ -141,7 +145,7 @@ public class StepProgressIndicatorView: UIView {
     
     // MARK: - Custom Properties -
     
-    @IBInspectable public var numberOfSteps: Int = 5 {
+    fileprivate var numberOfSteps: Int = 5 {
         didSet {
             self.createSteps()
         }
@@ -150,7 +154,7 @@ public class StepProgressIndicatorView: UIView {
     @IBInspectable public var currentStep: Int = -1 {
         didSet {
             needsColor = true
-            print("currentstep check: \(steps.indices.contains(currentStep) ? steps[currentStep] : nil)")
+            print("currentstep check: \(stepTitles.indices.contains(currentStep) ? stepTitles[currentStep] : nil)")
             if self.annularLayers.count <= 0 {
                 return
             }
@@ -280,10 +284,10 @@ public class StepProgressIndicatorView: UIView {
             var prevView: UIView = self
             var prevAttribute: NSLayoutConstraint.Attribute = .top
             
-            for i in 0..<steps.count {
+            for i in 0..<stepTitles.count {
                 //fixme
                 
-                let stepView = SingleStepView(text: steps[i], detail: details[i], font: textFont, detailFont: detailFont, shapeSize: shapeSize, lineWidth: lineWidth, hPadding: horizontalPadding, vPadding: verticalPadding)
+                let stepView = SingleStepView(text: stepTitles[i], detail: details[i], font: textFont, detailFont: detailFont, shapeSize: shapeSize, lineWidth: lineWidth, hPadding: horizontalPadding, vPadding: verticalPadding)
                 
                 stepViews.append(stepView)
 

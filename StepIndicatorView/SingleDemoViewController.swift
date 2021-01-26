@@ -66,9 +66,8 @@ class SingleDemoViewController: UIViewController {
     lazy var newStepProgressView: StepProgressIndicatorView = {
         let view = StepProgressIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.steps = firstSteps
+        view.stepTitles = firstSteps
         view.details = details
-        view.numberOfSteps = firstSteps.count
         view.currentStep = 0
         view.circleColor = .lightGray
         view.circleTintColor = .green
