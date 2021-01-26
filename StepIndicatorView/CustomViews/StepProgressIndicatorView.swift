@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum StepProgressIndicatorViewDirection:UInt {
+public enum StepProgressIndicatorViewDirection: UInt {
     case leftToRight = 0, rightToLeft, topToBottom, bottomToTop
 }
 
@@ -15,12 +15,14 @@ public enum StepProgressIndicatorViewDirection:UInt {
 public class StepProgressIndicatorView: UIView {
  
     // MARK: - Variables -
-    static let defaultColor = UIColor(red: 179.0/255.0, green: 189.0/255.0, blue: 194.0/255.0, alpha: 1.0)
+    
+    static let defaultColor = UIColor(red: 90.0 / 255.0, green: 164.0 / 255.0, blue: 222.0 / 255.0, alpha: 1.0)
     static let defaultTintColor = UIColor(red: 0.0/255.0, green: 180.0/255.0, blue: 124.0/255.0, alpha: 1.0)
     private var annularLayers = [AnnularLayer]()
     private var horizontalLineLayers = [LineLayer]()
     private let containerLayer = CALayer()
     
+    // MARK: - Behavior -
     
     /// Titles of the step-by-step progression stages
     open var steps: [String] = []
@@ -71,7 +73,7 @@ public class StepProgressIndicatorView: UIView {
             if needsColor && !oldValue {
                 DispatchQueue.main.async { [weak self] in
                     if let strongSelf = self, strongSelf.needsColor {
-                        strongSelf.colorSteps()
+                        strongSelf.setupStepViews()
                     }
                 }
             }
@@ -93,7 +95,7 @@ public class StepProgressIndicatorView: UIView {
         )
     }
 
-    private func colorSteps() {
+    private func setupStepViews() {
         needsColor = false
 
         let n = stepViews.count
@@ -291,13 +293,15 @@ public class StepProgressIndicatorView: UIView {
                 prevView = stepView
                 prevAttribute = .bottom
             }
+        
+        //fixme
 
     //        if let lastStepView = stepViews.last {
     //            lastStepView.lineView.isHidden = true
     //            constrain(lastStepView, at: .bottom)
     //        }
             
-            colorSteps()
+            setupStepViews()
         
         self.layer.addSublayer(self.containerLayer)
         self.updateSubLayers()
@@ -475,13 +479,9 @@ private class SingleStepView: UIView {
         constrain(detailLabel, at: .bottom, diff: -vPadding)
     }
 
-    //fixme
     func color(text: UIColor, detail: UIColor, stroke: UIColor, fill: UIColor, line: UIColor) {
         textLabel.textColor = text
         detailLabel.textColor = detail
-//        lineView.backgroundColor = line
-//        shapeLayer.strokeColor = stroke.cgColor
-//        shapeLayer.fillColor = fill.cgColor
     }
 
     override var intrinsicContentSize: CGSize {

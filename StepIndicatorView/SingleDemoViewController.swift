@@ -16,6 +16,11 @@ class SingleDemoViewController: UIViewController {
         "Last but not least",
     ]
     
+    let details = [
+        1: "Short descriotion",
+        3: "Kind of long rambling explanation that no one reads in reality.",
+    ]
+    
     lazy var slider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +58,7 @@ class SingleDemoViewController: UIViewController {
         view.lineMargin = 4.0
         view.lineStrokeWidth = 2.0
         view.displayNumbers = false
-        view.direction = .leftToRight
+        view.direction = .topToBottom
         view.showFlag = false
         return view
     }()
@@ -62,6 +67,7 @@ class SingleDemoViewController: UIViewController {
         let view = StepProgressIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.steps = firstSteps
+        view.details = details
         view.numberOfSteps = firstSteps.count
         view.currentStep = 0
         view.circleColor = .lightGray
@@ -104,12 +110,11 @@ class SingleDemoViewController: UIViewController {
             slider.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             slider.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             slider.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
-            
         ])
     }
     
     @objc func sliderChanged(_ sender: UISlider) {
-        print("sliderChanged: \(Int(sender.value))")
+//        print("sliderChanged: \(Int(sender.value))")
         stepProgressView.currentStep = Int(sender.value)
         stepIndicatorView.currentStep = Int(sender.value)
         newStepProgressView.currentStep = Int(sender.value)

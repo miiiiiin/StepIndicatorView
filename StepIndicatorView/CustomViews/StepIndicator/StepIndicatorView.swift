@@ -12,7 +12,6 @@ public enum StepIndicatorViewDirection:UInt {
     case leftToRight = 0, rightToLeft, topToBottom, bottomToTop
 }
 
-
 @IBDesignable
 public class StepIndicatorView: UIView {
     
@@ -25,6 +24,7 @@ public class StepIndicatorView: UIView {
     
     
     // MARK: - Overrided properties and methods
+    
     override public var frame: CGRect {
         didSet{
             self.updateSubLayers()

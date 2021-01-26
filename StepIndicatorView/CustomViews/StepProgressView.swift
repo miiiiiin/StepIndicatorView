@@ -15,7 +15,6 @@
 //  Copyright (c) 2016 Yonat Sharon. All rights reserved.
 //
 
-//import SweeterSwift
 import UIKit
 
 @IBDesignable
