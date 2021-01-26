@@ -35,10 +35,10 @@ public class StepProgressIndicatorView: UIView {
     open var details: [Int: String] = [:]
     
     // MARK: - Apperance -
-    
-    @IBInspectable open dynamic var lineWidth: CGFloat = 1
     @objc open dynamic var textFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
     @objc open dynamic var detailFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    
+    @IBInspectable open dynamic var lineWidth: CGFloat = 1
     
     /// space between steps (0 => default based on textFont)
     @IBInspectable open dynamic var verticalPadding: CGFloat = 0
@@ -68,7 +68,13 @@ public class StepProgressIndicatorView: UIView {
     @IBInspectable open dynamic var currentTextColor: UIColor? { didSet { needsColor = true } }
     
     
-    // MARK: - StepProgressView -
+    // MARK: - Private -
+    
+    fileprivate var numberOfSteps: Int = 5 {
+        didSet {
+            self.createSteps()
+        }
+    }
     
     private var stepViews: [SingleStepView] = []
     
@@ -84,21 +90,6 @@ public class StepProgressIndicatorView: UIView {
         }
     }
     
-    override open func tintColorDidChange() {
-        if nil == currentStepColor || nil == currentTextColor {
-            needsColor = true
-        }
-    }
-    
-    override open var intrinsicContentSize: CGSize {
-        if stepViews.isEmpty { return CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric) }
-        let stepSizes = stepViews.map { $0.intrinsicContentSize }
-        return CGSize(
-            width: stepSizes.map { $0.width }.max() ?? 0,
-            height: stepSizes.map { $0.height }.reduce(0, +)
-        )
-    }
-
     private func setupStepViews() {
         needsColor = false
 
@@ -143,13 +134,23 @@ public class StepProgressIndicatorView: UIView {
         self.updateSubLayers()
     }
     
-    // MARK: - Custom Properties -
-    
-    fileprivate var numberOfSteps: Int = 5 {
-        didSet {
-            self.createSteps()
+    override open func tintColorDidChange() {
+        if nil == currentStepColor || nil == currentTextColor {
+            needsColor = true
         }
     }
+    
+    override open var intrinsicContentSize: CGSize {
+        if stepViews.isEmpty { return CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric) }
+        let stepSizes = stepViews.map { $0.intrinsicContentSize }
+        return CGSize(
+            width: stepSizes.map { $0.width }.max() ?? 0,
+            height: stepSizes.map { $0.height }.reduce(0, +)
+        )
+    }
+
+    
+    // MARK: - Custom Properties -
     
     @IBInspectable public var currentStep: Int = -1 {
         didSet {

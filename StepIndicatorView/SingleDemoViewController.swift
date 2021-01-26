@@ -77,7 +77,7 @@ class SingleDemoViewController: UIViewController {
         view.lineTintColor = view.circleTintColor
         view.lineMargin = 4.0
         view.lineStrokeWidth = 2.0
-        view.displayNumbers = true
+        view.displayNumbers = false
         view.direction = .topToBottom
         view.showFlag = true
         return view
