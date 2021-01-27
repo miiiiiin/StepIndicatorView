@@ -144,7 +144,6 @@ public class StepProgressIndicatorView: UIView {
     
     @IBInspectable public var currentStep: Int = -1 {
         didSet {
-//            self.createSteps()
             self.updateSubLayers()
             needsColor = true
             
@@ -242,8 +241,7 @@ public class StepProgressIndicatorView: UIView {
         stepViews.forEach { $0.removeFromSuperview() }
         stepViews.removeAll(keepingCapacity: true)
         
-        let shapeSize = textFont.pointSize * 1.0
-        
+        let shapeSize = details.isEmpty ? textFont.pointSize * 1.2 : textFont.pointSize * 1.0
         if horizontalPadding.isZero { horizontalPadding = shapeSize / 2}
         if verticalPadding.isZero { verticalPadding = shapeSize }
         
@@ -273,13 +271,11 @@ public class StepProgressIndicatorView: UIView {
             }
         }
         
-        
         if direction == .topToBottom || direction == .bottomToTop {
             var prevView: UIView = self
             var prevAttribute: NSLayoutConstraint.Attribute = .top
             
             for i in 0..<stepTitles.count {
-                //fixme
                 let stepView = SingleStepView(text: stepTitles[i], detail: details[i], font: textFont, detailFont: detailFont, shapeSize: shapeSize, lineWidth: lineWidth, hPadding: horizontalPadding, vPadding: verticalPadding)
                 
                 stepViews.append(stepView)
@@ -300,7 +296,6 @@ public class StepProgressIndicatorView: UIView {
     }
     
     private func updateSubLayers() {
-        print("updatesublauer direction: \(self.direction)")
         self.containerLayer.frame = self.layer.bounds
         if self.direction == .leftToRight || self.direction == .rightToLeft {
             self.layoutHorizontal()
@@ -325,14 +320,11 @@ public class StepProgressIndicatorView: UIView {
             annularLayer.step = i + 1
             annularLayer.updateStatus()
             
-            print("annnularlayers horizontal frame: \(annularLayer.frame)")
-            
             if (i < self.stepTitles.count - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
                 lineLayer.frame = CGRect(x: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, y: y + (2 * 4), width: stepWidth - diameter - self.lineMargin * 2, height: 3)
                 self.applyLineStyle(lineLayer: lineLayer)
                 lineLayer.updateStatus()
-                print("lineLayer horizontal frame: \(lineLayer.frame)")
             }
         }
     }
@@ -340,13 +332,10 @@ public class StepProgressIndicatorView: UIView {
     private func layoutVertical() {
         let diameter = self.circleRadius * 2
         let stepWidth = self.stepTitles.count == 1 ? 0 : (self.containerLayer.frame.height - self.lineMargin * 2 - diameter) / CGFloat(self.stepTitles.count - 1)
-        let x = self.containerLayer.frame.width / 2.0
         
         for i in 0..<self.annularLayers.count {
             let annularLayer = self.annularLayers[i]
             let y = self.stepTitles.count == 1 ? self.containerLayer.frame.height / 2.0 - self.circleRadius : self.lineMargin + CGFloat(i) * stepWidth
-            
-            //            annularLayer.frame = CGRect(x: x - self.circleRadius, y: y, width: diameter, height: diameter)
             
             annularLayer.frame = CGRect(
                 origin: CGPoint(x: floor(annularLayer.lineWidth / 2), y: y),
@@ -357,18 +346,13 @@ public class StepProgressIndicatorView: UIView {
             annularLayer.step = i + 1
             annularLayer.updateStatus()
             
-//            print("annnularlayers frame: \(layer.frame)")
-//            print("x frame: \(x)")
             if (i < self.stepTitles.count - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
-                //fixme (x: "x - 1")
                 lineLayer.frame = CGRect(x: floor(annularLayer.lineWidth / 2) + 9, y: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, width: 3, height: stepWidth - diameter - self.lineMargin * 2)
                 
                 lineLayer.isHorizontal = false
                 self.applyLineStyle(lineLayer: lineLayer)
                 lineLayer.updateStatus()
-                
-//                print("linelayer frame: \(lineLayer.frame)")
             }
         }
     }
@@ -451,6 +435,7 @@ private class SingleStepView: UIView {
         
         leadingSpace = hPadding + shapeSize + lineWidth
         bottomSpace = vPadding
+        
         // text
         textLabel.font = font
         textLabel.text = text

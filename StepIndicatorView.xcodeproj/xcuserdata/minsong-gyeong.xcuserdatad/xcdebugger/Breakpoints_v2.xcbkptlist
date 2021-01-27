@@ -14,10 +14,10 @@
             filePath = "StepIndicatorView/CustomViews/StepProgressIndicatorView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "displayNumbers"
-            landmarkType = "24">
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "StepProgressIndicatorView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -30,8 +30,8 @@
             filePath = "StepIndicatorView/CustomViews/StepProgressIndicatorView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "displayNumbers"
             landmarkType = "24">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "StepIndicatorView/CustomViews/StepProgressIndicatorView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
             landmarkName = "directionRaw"
             landmarkType = "24">
          </BreakpointContent>

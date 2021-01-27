@@ -17,7 +17,7 @@ class SingleDemoViewController: UIViewController {
     ]
     
     let details = [
-        1: "Short descriotion",
+        0: "Short descriotion",
         3: "Kind of long rambling explanation that no one reads in reality.",
     ]
     
@@ -35,6 +35,7 @@ class SingleDemoViewController: UIViewController {
         let view = StepProgressView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.steps = firstSteps
+        view.details = details
         view.currentStep = 0
         view.stepShape = .circle
         view.lineWidth = 2.5
@@ -66,7 +67,6 @@ class SingleDemoViewController: UIViewController {
     lazy var newStepProgressView: StepProgressIndicatorView = {
         let view = StepProgressIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         view.stepTitles = firstSteps
         view.details = details
         view.direction = .topToBottom
