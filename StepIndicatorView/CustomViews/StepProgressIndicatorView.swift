@@ -25,16 +25,20 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - Behavior -
     
     /// Titles of the step-by-step progression stages
-    open var stepTitles: [String] = []
-    
-    /// Optional additional text description for each step, shown below the step title
-    open var details: [Int: String] = [:]
-    
-    open var numberOfSteps: Int = 5 {
+    open var stepTitles: [String] = [] {
         didSet {
             self.createSteps()
         }
     }
+    
+    /// Optional additional text description for each step, shown below the step title
+    open var details: [Int: String] = [:]
+    
+//    open var numberOfSteps: Int = 5 {
+//        didSet {
+//            self.createSteps()
+//        }
+//    }
     
     // MARK: - Apperance -
     @objc open dynamic var textFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
@@ -262,22 +266,31 @@ public class StepProgressIndicatorView: UIView {
         self.annularLayers.removeAll()
         self.horizontalLineLayers.removeAll()
         
-        if self.numberOfSteps <= 0 {
+//        if self.stepTitles.count <= 0 {
+//            return
+//        }
+        
+        print("steptitles count checK: \(self.stepTitles.count)")
+        
+        if self.stepTitles.count <= 0 {
             return
         }
         
-        for i in 0..<self.numberOfSteps {
+        for i in 0..<self.stepTitles.count {
+            print("steptitles count checK22: \(self.stepTitles.count)")
             let annularLayer = AnnularLayer()
             self.containerLayer.addSublayer(annularLayer)
             self.annularLayers.append(annularLayer)
             
             
-            if (i < self.numberOfSteps - 1) {
+            if (i < self.stepTitles.count - 1) {
+                print("steptitles count checK33: \(self.stepTitles.count)")
                 let lineLayer = LineLayer()
                 self.containerLayer.addSublayer(lineLayer)
                 self.horizontalLineLayers.append(lineLayer)
             }
         }
+        
         
         print("annularlaeyrs: \(self.annularLayers), \(direction)") //1
         
@@ -301,7 +314,7 @@ public class StepProgressIndicatorView: UIView {
             }
         } else {
             
-            print("annularlayer: \(self.numberOfSteps)")
+            print("annularlayer: \(self.stepTitles.count)")
         }
         
         setupStepViews()
@@ -324,13 +337,14 @@ public class StepProgressIndicatorView: UIView {
     }
     
     private func layoutHorizontal() {
+        print("layoutHorizontal")
         let diameter = self.circleRadius * 2
-        let stepWidth = self.numberOfSteps == 1 ? 0 : (self.containerLayer.frame.width - self.lineMargin * 2 - diameter) / CGFloat(self.numberOfSteps - 1)
+        let stepWidth = self.stepTitles.count == 1 ? 0 : (self.containerLayer.frame.width - self.lineMargin * 2 - diameter) / CGFloat(self.stepTitles.count - 1)
         let y = self.containerLayer.frame.height / 2.0
         
         for i in 0..<self.annularLayers.count {
             let annularLayer = self.annularLayers[i]
-            let x = self.numberOfSteps == 1 ? self.containerLayer.frame.width / 2.0 - self.circleRadius : self.lineMargin + CGFloat(i) * stepWidth
+            let x = self.stepTitles.count == 1 ? self.containerLayer.frame.width / 2.0 - self.circleRadius : self.lineMargin + CGFloat(i) * stepWidth
             
             annularLayer.frame = CGRect(x: x, y: y, width: diameter, height: diameter)
             self.applyAnnularStyle(annularLayer: annularLayer)
@@ -339,7 +353,7 @@ public class StepProgressIndicatorView: UIView {
             
             print("annnularlayers horizontal frame: \(annularLayer.frame)")
             
-            if (i < self.numberOfSteps - 1) {
+            if (i < self.stepTitles.count - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
                 lineLayer.frame = CGRect(x: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, y: y + (2 * 4), width: stepWidth - diameter - self.lineMargin * 2, height: 3)
                 self.applyLineStyle(lineLayer: lineLayer)
@@ -350,13 +364,14 @@ public class StepProgressIndicatorView: UIView {
     }
     
     private func layoutVertical() {
+        print("layoutVertical")
         let diameter = self.circleRadius * 2
-        let stepWidth = self.numberOfSteps == 1 ? 0 : (self.containerLayer.frame.height - self.lineMargin * 2 - diameter) / CGFloat(self.numberOfSteps - 1)
+        let stepWidth = self.stepTitles.count == 1 ? 0 : (self.containerLayer.frame.height - self.lineMargin * 2 - diameter) / CGFloat(self.stepTitles.count - 1)
         let x = self.containerLayer.frame.width / 2.0
         
         for i in 0..<self.annularLayers.count {
             let annularLayer = self.annularLayers[i]
-            let y = self.numberOfSteps == 1 ? self.containerLayer.frame.height / 2.0 - self.circleRadius : self.lineMargin + CGFloat(i) * stepWidth
+            let y = self.stepTitles.count == 1 ? self.containerLayer.frame.height / 2.0 - self.circleRadius : self.lineMargin + CGFloat(i) * stepWidth
             
             //            annularLayer.frame = CGRect(x: x - self.circleRadius, y: y, width: diameter, height: diameter)
             
@@ -371,7 +386,7 @@ public class StepProgressIndicatorView: UIView {
             
             print("annnularlayers frame: \(layer.frame)")
             print("x frame: \(x)")
-            if (i < self.numberOfSteps - 1) {
+            if (i < self.stepTitles.count - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
                 //fixme (x: "x - 1")
                 lineLayer.frame = CGRect(x: floor(annularLayer.lineWidth / 2) + 9, y: CGFloat(i) * stepWidth + diameter + self.lineMargin * 2, width: 3, height: stepWidth - diameter - self.lineMargin * 2)
@@ -422,7 +437,7 @@ public class StepProgressIndicatorView: UIView {
     }
     
     private func setCurrentStep(step: Int) {
-        for i in 0..<self.numberOfSteps {
+        for i in 0..<self.stepTitles.count {
             if i < step {
                 if !self.annularLayers[i].isFinished {
                     self.annularLayers[i].isFinished = true
