@@ -144,7 +144,7 @@ public class StepProgressIndicatorView: UIView {
     
     @IBInspectable public var currentStep: Int = -1 {
         didSet {
-            self.updateSubLayers()
+//            self.updateSubLayers()
             needsColor = true
             
             if self.annularLayers.count <= 0 {
