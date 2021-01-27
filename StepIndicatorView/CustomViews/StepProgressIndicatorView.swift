@@ -25,20 +25,10 @@ public class StepProgressIndicatorView: UIView {
     // MARK: - Behavior -
     
     /// Titles of the step-by-step progression stages
-    open var stepTitles: [String] = [] {
-        didSet {
-            self.createSteps()
-        }
-    }
-    
+    open var stepTitles: [String] = []
     /// Optional additional text description for each step, shown below the step title
     open var details: [Int: String] = [:]
     
-//    open var numberOfSteps: Int = 5 {
-//        didSet {
-//            self.createSteps()
-//        }
-//    }
     
     // MARK: - Apperance -
     @objc open dynamic var textFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
@@ -154,6 +144,7 @@ public class StepProgressIndicatorView: UIView {
     
     @IBInspectable public var currentStep: Int = -1 {
         didSet {
+            self.createSteps()
             needsColor = true
             print("currentstep check: \(stepTitles.indices.contains(currentStep) ? stepTitles[currentStep] : nil)")
             if self.annularLayers.count <= 0 {
@@ -266,25 +257,20 @@ public class StepProgressIndicatorView: UIView {
         self.annularLayers.removeAll()
         self.horizontalLineLayers.removeAll()
         
-//        if self.stepTitles.count <= 0 {
-//            return
-//        }
         
-        print("steptitles count checK: \(self.stepTitles.count)")
+        print("steptitles count checK: \(self.stepTitles.count), \(details)")
         
         if self.stepTitles.count <= 0 {
             return
         }
         
         for i in 0..<self.stepTitles.count {
-            print("steptitles count checK22: \(self.stepTitles.count)")
             let annularLayer = AnnularLayer()
             self.containerLayer.addSublayer(annularLayer)
             self.annularLayers.append(annularLayer)
             
             
             if (i < self.stepTitles.count - 1) {
-                print("steptitles count checK33: \(self.stepTitles.count)")
                 let lineLayer = LineLayer()
                 self.containerLayer.addSublayer(lineLayer)
                 self.horizontalLineLayers.append(lineLayer)
@@ -326,7 +312,6 @@ public class StepProgressIndicatorView: UIView {
     
     private func updateSubLayers() {
         self.containerLayer.frame = self.layer.bounds
-        print("updatesublayers: \(self.direction)")
         if self.direction == .leftToRight || self.direction == .rightToLeft {
             self.layoutHorizontal()
         } else {
@@ -337,7 +322,6 @@ public class StepProgressIndicatorView: UIView {
     }
     
     private func layoutHorizontal() {
-        print("layoutHorizontal")
         let diameter = self.circleRadius * 2
         let stepWidth = self.stepTitles.count == 1 ? 0 : (self.containerLayer.frame.width - self.lineMargin * 2 - diameter) / CGFloat(self.stepTitles.count - 1)
         let y = self.containerLayer.frame.height / 2.0
@@ -384,8 +368,8 @@ public class StepProgressIndicatorView: UIView {
             annularLayer.step = i + 1
             annularLayer.updateStatus()
             
-            print("annnularlayers frame: \(layer.frame)")
-            print("x frame: \(x)")
+//            print("annnularlayers frame: \(layer.frame)")
+//            print("x frame: \(x)")
             if (i < self.stepTitles.count - 1) {
                 let lineLayer = self.horizontalLineLayers[i]
                 //fixme (x: "x - 1")
@@ -395,7 +379,7 @@ public class StepProgressIndicatorView: UIView {
                 self.applyLineStyle(lineLayer: lineLayer)
                 lineLayer.updateStatus()
                 
-                print("linelayer frame: \(lineLayer.frame)")
+//                print("linelayer frame: \(lineLayer.frame)")
             }
         }
     }
