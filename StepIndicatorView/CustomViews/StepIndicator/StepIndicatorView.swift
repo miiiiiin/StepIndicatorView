@@ -111,8 +111,6 @@ public class StepIndicatorView: UIView {
     
     public var direction:StepIndicatorViewDirection = .leftToRight {
         didSet{
-            
-            print("initial direction: \(direction)")
             self.updateSubLayers()
         }
     }
@@ -146,8 +144,6 @@ public class StepIndicatorView: UIView {
         if self.numberOfSteps <= 0 {
             return
         }
-        
-        print("createSteps direction: \(direction)")
         
         for i in 0..<self.numberOfSteps {
             let annularLayer = AnnularLayer()

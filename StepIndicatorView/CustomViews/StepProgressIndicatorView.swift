@@ -144,9 +144,10 @@ public class StepProgressIndicatorView: UIView {
     
     @IBInspectable public var currentStep: Int = -1 {
         didSet {
-            self.createSteps()
+//            self.createSteps()
+            self.updateSubLayers()
             needsColor = true
-            print("currentstep check: \(stepTitles.indices.contains(currentStep) ? stepTitles[currentStep] : nil)")
+            
             if self.annularLayers.count <= 0 {
                 return
             }
@@ -213,9 +214,7 @@ public class StepProgressIndicatorView: UIView {
     
     public var direction: StepProgressIndicatorViewDirection = .topToBottom {
         didSet {
-            //fixme
-            //timing error
-            print("initial direction: \(direction)")
+            self.createSteps()
             self.updateSubLayers()
         }
     }
@@ -256,10 +255,7 @@ public class StepProgressIndicatorView: UIView {
         
         self.annularLayers.removeAll()
         self.horizontalLineLayers.removeAll()
-        
-        
-        print("steptitles count checK: \(self.stepTitles.count), \(details)")
-        
+
         if self.stepTitles.count <= 0 {
             return
         }
@@ -278,11 +274,7 @@ public class StepProgressIndicatorView: UIView {
         }
         
         
-        print("annularlaeyrs: \(self.annularLayers), \(direction)") //1
-        
-        
         if direction == .topToBottom || direction == .bottomToTop {
-            print("directiontopbottom: \(direction)")
             var prevView: UIView = self
             var prevAttribute: NSLayoutConstraint.Attribute = .top
             
@@ -298,9 +290,6 @@ public class StepProgressIndicatorView: UIView {
                 prevView = stepView
                 prevAttribute = .bottom
             }
-        } else {
-            
-            print("annularlayer: \(self.stepTitles.count)")
         }
         
         setupStepViews()
@@ -311,6 +300,7 @@ public class StepProgressIndicatorView: UIView {
     }
     
     private func updateSubLayers() {
+        print("updatesublauer direction: \(self.direction)")
         self.containerLayer.frame = self.layer.bounds
         if self.direction == .leftToRight || self.direction == .rightToLeft {
             self.layoutHorizontal()
@@ -348,7 +338,6 @@ public class StepProgressIndicatorView: UIView {
     }
     
     private func layoutVertical() {
-        print("layoutVertical")
         let diameter = self.circleRadius * 2
         let stepWidth = self.stepTitles.count == 1 ? 0 : (self.containerLayer.frame.height - self.lineMargin * 2 - diameter) / CGFloat(self.stepTitles.count - 1)
         let x = self.containerLayer.frame.width / 2.0
